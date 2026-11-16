@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div>
+        <ul id="listitems">
+
+        </ul>
+        <button onclick="addCss(`Css`)">Add Css</button>
+        <button onclick="addCss(`JavaScript`)">Add JAvaScript</button>
+        <button onclick="addCss(`React`)">Add React</button>
+       <button onclick="addAll()">Add All</button>
+       <button onclick="deleteAll()">deleteAll</button> -->
+       
+    <!-- </div> -->
+     <div>
+        <form id="form"  onsubmit="addrow(event)">
+            <input required placeholder="Enter Name"  type="text" name="name">
+            <input required placeholder="Enter Email" type="email" name="email">
+            <input required  placeholder="Enter phoneNumber" minlength="5" maxlength="10" type="number" name="phone Number">
+            <input type="submit" value="Add">
+        </form>
+        <ul id="listItems" >
+
+        </ul>
+
+        <table border="">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>email</td>
+                    <td>phone Number</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+     </div>
+    <script>
+        const form = document.getElementById("form")
+        const ul = document.getElementById("listItems")
+        const table = document.querySelector("table")
+        form.addEventListener("submit" ,(event)=>{
+           event.preventDefault()
+        //    let textcontent = event.target[0].value.trim()
+        //    console.log(textcontent,textcontent.length);
+        //    if(textcontent==0){
+        //     alert("please enter")
+        //     return
+        //    }
+        //    console.log(event.target[0].value);
+        //    createList(event.target[0].value)
+
+        function addrow(e){
+           e.preventDefault()
+        }
+               
+                const name = event.target[0].value.trim()
+                const email = event.target[1].value.trim()
+                const phoneNumber = event.target[2].value.trim()
+
+                if(name.length <1 || email.length<1|| phoneNumber.length !=10){
+                     alert("please enter valid details")
+                     return 
+                 }
+                addtableItems(name,email,phoneNumber)
+           event.target.reset()
+        })
+
+        function addtableItems(name,email,phoneNumber){
+            const tr = document.createElement("tr")
+            const tdOne = document.createElement("td")
+            tdOne.textContent = name
+            const tdTwo = document.createElement("td")
+            tdTwo.textContent = email
+            const tdThree = document.createElement("td")
+            tdThree.textContent = phoneNumber
+
+            const tdFour = document.createElement("td")
+            const button = document.createElement("button")
+            button.textContent = "Delete"
+            button.onclick = function(){
+                tr.remove()
+            }
+             tdFour.appendChild(button)
+            tr.append(tdOne,tdTwo,tdThree,tdFour)
+            table.appendChild(tr)
+            
+
+            console.log(tr);
+        }
+
+        
+
+        // const ul = document.getElementById("listitems")
+        // const li = document.createElement("li")
+        // li.textContent = "html"
+        //  const cssli = document.createElement("li")
+        //  cssli.textContent = "css"
+        
+        // ul.append(li,cssli)
+
+        // function addAll(){
+        //     const listItems = ["Css","JavaScript","React"]
+        //     for(let i=0;i<listItems.length;i++){
+        //         const li = document.createElement("li")
+        //         li.textContent = listItems[i]
+        //         ul.appendChild(li) 
+        //     }
+        // }
+
+        // function deleteAll(){
+        //     ul.innerHTML = " "
+        //     // const childNodes = ul.childNodes
+        //     // for(let i=0;i<childNodes.length;i++){
+        //     //     console.log(childNodes[i]);
+        //     //     childNodes[0].remove();
+        //     // }
+        // }
+
+        // function addCss(textcontent){
+        //     const li = document.createElement("li")
+        //     li.textContent = textcontent
+        //     ul.appendChild(li)
+        // }
+         
+    </script>
+</body>
+</html>

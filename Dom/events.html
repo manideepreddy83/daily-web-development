@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+       
+        .box{
+           height:20vh;
+           width:40vw;
+           border: 1px solid black;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+        }
+        .active{
+          background-color: rgb(53 53 139);
+          color:white;
+        }
+    </style>
+</head>
+<body>
+    
+      
+    <!-- <div class="box active">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div> -->
+
+    <script>
+const body = document.querySelector("body");
+
+const numberOfBoxes = 3;
+
+let activeBoxNumber = 0;
+
+function createBox(limit) {
+    for (let i = 0; i<limit; i++) {
+        const div = document.createElement("div");
+        if (i == 0) {
+         div.classList.add("active");
+        }
+        div.classList.add("box");
+        div.textContent = i;
+        body.appendChild(div);
+    }
+}
+createBox(numberOfBoxes);
+
+const children = body.children
+body.addEventListener("keydown", (e) => {
+    if (e.key == "ArrowDown") {
+        children[activeBoxNumber+1].classList.remove("active")
+        activeBoxNumber++;
+    if (activeBoxNumber == numberOfBoxes) {
+        activeBoxNumber = 0;
+    }
+       children[activeBoxNumber+1].classList.add("active")
+    console.log("down key pressed", activeBoxNumber);
+    }
+});
+
+body.addEventListener("keyup", (e) => {
+    if (e.key == "ArrowUp") {
+
+        children[activeBoxNumber+1].classList.remove("active")
+        activeBoxNumber--;
+    if (activeBoxNumber == -1) {
+        activeBoxNumber = numberOfBoxes - 1;
+    }
+     children[activeBoxNumber+1].classList.add("active")
+    console.log("up key pressed", activeBoxNumber);
+    }
+
+    if(e.key == "Delete"){
+        
+        children[activeBoxNumber+1].remove()
+        children[activeBoxNumber+1].classList.add("active")
+        console.log(activeBoxNumber);
+    }
+
+    if(e.ctrlKey && e.key == "a"){
+        console.log("ctrl + A clik")
+
+        for(let i=1; i<children.length-1;i++){
+            children[i].classList.add("active")
+        }
+    }
+});
+    </script>
+    
+</body>
+</html>

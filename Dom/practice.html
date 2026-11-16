@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .filters{
+          display: flex;
+          justify-content: space-between;
+          padding: 10px;
+          align-items: center;
+          gap: 20px;
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+          body{
+            min-height: 100vh;
+            padding: 20px;
+          }
+          #searchFilter{
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+          }
+          #addRecord{
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #4f46e5;
+            color: white;
+          }
+          table{
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;    /*----------*/ 
+          }
+          th{
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+          }
+          td{
+            padding: 12px;
+            border-bottom:1px solid #eee ;
+          }
+          .modal{
+            position: fixed;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0 ,0, 0 ,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+          }
+          .form{
+             width: 400px;
+             padding: 30px;
+             background-color: white;
+             display: flex;
+             flex-direction: column;
+             gap: 20px;
+             border-radius: 8px;
+          }
+    </style>
+</head>
+<body>
+    <div class="filters">
+    <input type="text" id="searchFilter" placeholder="search...">
+    <button id="addRecord">Add</button>
+    </div>
+    <table border="">
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <div class="modal">
+      <form class="form">
+        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Email">
+        <input type="text" placeholder="Phone">
+
+        <button type="submit">Submit</button>
+      </form>
+     </div>
+    <script>
+     
+        let students = [
+            {id:1,name:"Nitesh",email:"nitesh@gmail.com",phone:8431185185},
+            {id:2,name:"Minhaj",email:"minhaj@gmail.com",phone:8432285185},
+            {id:3,name:"Mani",email:"mani@gmail.com",phone:843385185},
+            {id:4,name:"Anil",email:"vishnu@gmail.com",phone:8434485185},
+            {id:5,name:"Charan",email:"charan@gmail.com",phone:8435585185},
+            {id:6,name:"Suresh",email:"suresh@gmail.com",phone:8436685185}
+
+        ]
+        const tbody = document.getElementById("tbody")
+
+        function addTableRows(data=students){
+           tbody.innerHTML = "";
+
+           data.forEach((student)=>{
+             const tr = document.createElement("tr")
+             tr.dataset.id = student.id
+
+             tr.innerHTML = `
+              <td>${student.name}</td>
+              <td>${student.email}</td>
+              <td>${student.phone}</td>
+              <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+                </td>
+             `
+             tbody.appendChild(tr)
+            
+           });
+        }
+        addTableRows();
+
+        tbody.addEventListener("click",(e)=>{
+            if(e.target.classList.contains("delete-btn")){
+             
+                const row = e.target.closest("tr")
+                console.log(row);
+                const id = Number(row.dataset.id)
+
+              const   students = students.filter((student)=>{
+                  return student.id !== id
+                })
+                  console.log(students);
+
+                  addTableRows()
+            }
+           if(e.target.classList.contains("edit-btn")){
+                 const row = e.target.closest("tr")
+                 const id = Number(row.dataset.id)
+                const  student = students.find((student)=>{
+                  return student.id == id
+                 })
+                
+                console.log(students);
+
+                const inputs = document.querySelectorAll("input")
+                 
+                  console.log(inputs);
+                inputs[1].value = student.name
+                inputs[2].value = student.email
+                inputs[3].value = student.phone
+
+                
+
+                openModal()
+           } 
+        })
+
+
+        const searchBar = document.getElementById("searchFilter")
+       
+        searchBar.addEventListener("input",(e)=>{
+            const text = e.target.value
+            
+            const filtredStudents = students.filter((student)=>{
+              return (student.name.toLocaleLowerCase().includes(text.toLocaleLowerCase())||
+                      student.email.toLocaleLowerCase().includes(text.toLocaleLowerCase())||
+                      student.phone.toString().includes(text)
+                      )
+            })
+
+            addTableRows(filtredStudents)
+        })  
+         const modal = document.querySelector(".modal")
+         const form = document.querySelector(".form")
+
+         function openModal(){
+          modal.style.display = "flex";
+
+         }
+    </script>
+</body>
+</html>

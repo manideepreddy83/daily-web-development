@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- 
+    <button onclick="storeName()">Store Name</button>
+
+    <button onclick="getName()">Get Name</button>
+
+    <button onclick="deleteName()">Delete Name</button>
+
+    <button onclick="clearStorage()">Clear Storage</button>
+
+    <button onclick="storedInSession()">Store id in session</button>
+
+    <p id="displayName"></p> -->
+
+
+    <form >
+        <input type="text" placeholder="First Name" id="one">
+        <input type="text" placeholder="Last Name" id="two">
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <ol id="list">
+
+    </ol>
+    
+
+    <script>
+
+
+        const inputOne = document.getElementById("one")
+        const inputTwo = document.getElementById("two")
+        const  form = document.querySelector("form")
+        const ol = document.getElementById("list")
+
+
+        const nameValue = sessionStorage.getItem("name")
+        const lastNameValue = sessionStorage.getItem("lastName")
+
+
+        // Check if localstorage has previous data if yes then render it
+        const names = JSON.parse(localStorage.getItem("names")) || []
+
+        if(names.length){
+
+            names.forEach((name)=>{
+                
+                addItem(name)
+            })
+        }
+
+        // Render already saved values in session storage
+        if(nameValue){
+            inputOne.value = nameValue
+        }
+
+
+        if(lastNameValue){
+            inputTwo.value = lastNameValue
+        }
+        console.log(nameValue,lastNameValue)
+
+
+        // sessionStorage.name = "ni"
+        // sessionStorage.name = "pi"
+
+        inputOne.addEventListener("input",(e)=>{
+            console.log(e.target.value)
+            sessionStorage.setItem("name",e.target.value)
+        })
+
+          inputTwo.addEventListener("input",(e)=>{
+            sessionStorage.setItem("lastName",e.target.value)
+        })
+
+
+
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+
+            console.log(names)
+
+
+            const currentName = {firstName : inputOne.value, lastName : inputTwo.value}
+            names.push(currentName)
+            console.log(currentName,names)
+
+            // Remove data from session storage
+            sessionStorage.clear()
+
+            // Add new item in the list
+            addItem(currentName)
+
+
+            // Whenever a new name is added stor it in localstorage
+            localStorage.setItem("names",JSON.stringify(names))
+            form.reset()
+        })
+
+
+        function addItem(name){
+            const span = document.createElement("span")
+            const li = document.createElement("li")
+
+            span.textContent = `${name.firstName} ${name.lastName}`
+
+            li.appendChild(span)
+            ol.appendChild(li)
+        }
+        // console.log(window,'window')
+
+
+        // function storedInSession(){
+        //     sessionStorage.setItem("session-id",`9`)
+
+        // }
+
+
+
+
+
+        // // Display name on page refresh/load if name is present in local storage
+        // const p = document.getElementById("displayName")
+
+        // const name = localStorage.getItem("name")
+        // localStorage.setItem("gender","male")
+        // localStorage.setItem("localtion","hyderabad")
+
+        // if(name){
+        //     p.textContent = name
+        // }
+
+        // function storeName(){
+
+        //     window.localStorage.setItem("name","nitesh")
+        // }
+
+        // function getName(){
+        //     const name =  localStorage.getItem("name")
+        //     p.textContent = name
+        // }
+
+        // function deleteName(){
+        //     localStorage.removeItem("name")
+        // }
+
+        // function clearStorage(){
+        //     localStorage.clear()
+        // }
+
+
+        // console.log(localStorage.getItem("name"))
+    </script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 # Daily Web Development
 
-This repository contains my daily coding practice.
+Welcome to my web development learning journey!
+
+This repository contains my daily coding practice, institute exercises, concepts and mini projects.
 
 ## Technologies
 
@@ -9,9 +11,20 @@ This repository contains my daily coding practice.
 - JavaScript
 - DOM Manipulation
 
-## Goal
+## Repository Structure
 
-To improve my web development skills
-through consistent practice and projects.
-# daily-web-development
-My daily web development practice, coding exercises, concepts and mini projects.
+- **HTML:** HTML fundamentals and practice exercises.
+- **CSS:** Styling, Flexbox, Grid and layouts.
+- **JavaScript:** Fundamentals, functions, arrays, objects and problem-solving.
+- **DOM:** DOM manipulation, events and local storage.
+- **Mini-Projects:** Practical projects.
+
+## My Goal
+
+To become a skilled web developer through consistent practice, problem-solving and building projects.
+
+## Learning Journey
+
+I regularly practise coding, improve my solutions and document my progress through this repository.
+
+More exercises and projects will be added as I continue learning.

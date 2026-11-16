@@ -1,0 +1,162 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width:200px;
+            height: 100px;
+            border: 1px solid black;
+            margin-top: 40px;
+            background-color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        
+        
+    </div>
+    <script>
+
+    //     console.log("Javascript is working")
+    //     const h1=document.getElementById("headingone")
+    //     const btn=document.getElementById("changeTextbtn")
+    //     // btn.addEventListener("click",changeText)
+    //    const h1s =document.querySelectorAll("h1")
+    //    const btn1 = document.querySelector("#change")
+    //    console.log(h1s,btn1);
+    //     // function changeText(){
+    //     //    h1.textContent="clicked"
+    //     // }
+
+        // const h1 = document.querySelector("h1")
+        // const btn =document.querySelector("button")
+
+        // btn.addEventListener("click",()=>{
+        //     h1.remove()
+        // })
+
+    //     console.log(h1,h1.textContent,'document');
+
+    const btn = document.getElementById("box")
+    btn.addEventListener("hover",()=>{
+        const red = Math.floor(Math.random()*256)
+        const green = Math.floor(Math.random()*256)
+        const blue = Math.floor(Math.random()*256)
+
+        btn.style.backgroundColor =`rgb(${red},${green},${blue})`
+    })
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+<body>
+    <h1 id="title">Hello World</h1>
+    <p class="message">Welcome!</p>
+    <p class="message">back</p>
+    <p>One</p>
+    <p>Two</p>
+    <p id="status">Waiting...</p>
+    <div id="container">
+    <p>Old Content</p>
+    <div id="box">Hello!</div>
+    <img id="image" src="cat.jpg" alt="A cute cat">
+    <a id="website" href="https://oldsite.com">Visit Website</a>
+    <ul id="fruits">
+    <li>Apple</li>
+    <li>Banana</li>
+    
+</ul>
+<ul>
+    <li id="apple">Apple</li>
+    <li>Banana</li>
+    <li>Mango</li>
+</ul>
+<div id="parent">
+    <p id="first">First</p>
+    <p id="second">Second</p>
+</div>
+</div>
+    <script>
+        const parent = document.getElementById("parent")
+        const second = document.getElementById("second")
+        parent.removeChild(second);
+        const del = document.getElementById("apple")
+        del.remove();
+        const fruits = document.getElementById("fruits")
+        console.log(fruits);
+        const list = document.createElement("li")
+        list.textContent = "Mango"
+        fruits.appendChild(list)
+
+        const box = document.getElementById("box")
+        const heading = document.createElement("h2")
+        heading.textContent = "Hi Mani!..."
+        box.appendChild(heading)
+        const status = document.getElementById("status")
+        console.log(status);
+        const paragraph = document.createElement("p")
+        paragraph.textContent = "completed"
+        console.log(paragraph);
+        status.appendChild(paragraph)
+        paragraph.style.color = "blue";
+        const para = document.createElement("p")
+        para.textContent = "hello Mani"
+        console.log(para);
+        const head = document.createElement("h2")
+        head.textContent = "Learning Dom"
+        console.log(head);
+        const parag = document.createElement("p")
+        parag.textContent = "New Content"
+        container.prepend(parag)
+        parag.style.color = "red";
+        // const website = document.getElementById("website")
+        // console.log(website.getAttribute("href"));
+        // website.setAttribute("href","https://newsite.com")
+        // console.log(website);
+
+        // const image = document.getElementById("image")
+        // console.log(image.getAttribute("src"));
+        // image.setAttribute("src" ,"dog.jpg")
+        // console.log(image.getAttribute("src"));
+
+        // const box = document.getElementById("box")
+        // box.style.color = "white";
+        // box.style.backgroundColor = "blue";
+        // box.style.fontSize = "30px";
+
+    // // selecting an element ----
+    // const heading = document.getElementById("title")
+    // console.log(heading);
+    // console.log(heading);
+    // const message = document.getElementsByClassName("message")
+    // console.log(message);
+    // console.log(message[0]);
+    // console.log(message[1]);
+    // const para = document.getElementsByTagName("p")
+    // console.log(para);
+    // const head = document.querySelector("#title")
+    // console.log(head);
+    // const text = document.querySelector(".message")
+    // console.log(text);
+    // const paragraph = document.querySelectorAll("p")
+    // console.log(paragraph);
+    // const status = document.getElementById("status")
+    // console.log(status)
+    // console.log(status.textContent);
+    // status.textContent = "completed"
+    // const container = document.getElementById("container")
+    // container.innerHTML = "<h2>Welcome Mani</h2>"
+    // console.log(container);
+  </script>
+</body>
+</html>

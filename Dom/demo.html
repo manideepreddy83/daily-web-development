@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            height:100vh;
+            width: 100vw;
+        }
+
+        .filters{
+            display: flex;
+            justify-content: space-between;
+            /* background-color: rgb(220, 214, 214); */
+            padding: 10px;
+        }
+
+        #addRecord{
+            height: 30px;
+            width: 60px;
+            cursor: pointer;
+            background-color: rgb(126, 126, 213);
+
+        }
+        
+        .modal{
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(0, 0, 0,0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+
+        .form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 40vh;
+            width: 40vw;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="filters">
+            <input type="text" id="searchFilter">
+            <button id="addRecord">Add</button>
+    </div>
+    <table border>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <div class="modal">
+
+            <button onclick="closeModal()">Close</button>
+
+            <form class="form">
+                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Phone">
+                <input type="submit" value="Submit">
+
+            </form>
+
+    </div>
+
+    <script>
+        const students = [
+            {id:1,name :"Nitesh",email:"nitesh@gmail.com",phone:8431185185},
+            { id:2,name :"Minhaj",email:"minhaj@gmail.com",phone:8432285185},
+            { id:3,name :"Pavan",email:"pavan@gmail.com",phone:8931185185},
+            { id:4,name :"Bhanu",email:"bhanu@gmail.com",phone:9431185185},
+            { id:5,name :"Shankar",email:"shankar@gmail.com",phone:8431182685},
+            {id:6,name:"Shiva",email:"nitin@gmail.com",phone:8908807890}
+
+        ]
+
+
+        const searchBar = document.getElementById("searchFilter")
+
+        const addButton = document.getElementById("addRecord")
+
+        const modal = document.querySelector(".modal")
+
+        const form = document.querySelector(".form")
+
+        const table = document.querySelector("table")
+
+
+        table.addEventListener("dblclick",(e)=>{
+            const td = e.target
+            const row = e.target.closest("tr")
+            console.log(td,row,'double clicked on table')
+
+            const previousValue = td.textContent
+
+            const input = document.createElement("input")
+            input.value = previousValue
+
+            td.innerHTML = ""
+
+            td.appendChild(input)
+
+        })
+
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            console.log(e.target.children)
+
+            const formData = e.target.children
+
+            const name = formData[0].value.trim()
+            const email = formData[1].value.trim()
+            const phone = Number(formData[2].value.trim())
+
+
+            const newStudent = {id: Math.floor(`${phone + Math.random()*500}`) ,name,email,phone}
+
+            students.push(newStudent)
+
+            renderFilterItems()
+
+            e.target.reset()
+            closeModal()
+            console.log(newStudent)
+
+        })
+
+        addButton.addEventListener("click",openModal)
+
+        function openModal(){
+            modal.style.display = "flex"
+
+        }
+
+
+        function closeModal(){
+            modal.style.display = "none"
+        }
+
+        searchBar.addEventListener("input",renderFilterItems)
+
+
+        function renderFilterItems(){
+            const text = searchBar.value
+            const filteredStudents = students.filter((student)=>{
+                return (
+                    student.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+                    student.email.toLocaleLowerCase().includes(text.toLocaleLowerCase()) ||
+                    student.phone.toString().includes(text)
+                )
+            })
+
+            addTableRows(filteredStudents)
+            console.log(filteredStudents,'filtered students')
+        }
+
+
+
+
+
+
+
+
+
+        const tbody = document.getElementById("tbody")
+
+
+        function addTableRows(data=students){
+            tbody.innerHTML = ``
+
+
+            data.forEach((student)=>{
+                const tr = document.createElement("tr")
+                tr.dataset.id=student.id
+
+                tr.innerHTML = `
+                    <td  data-field="name" >${student.name} </td>
+                    <td  data-field="email" >${student.email} </td>
+                    <td  data-field="phone" >${student.phone} </td>
+                    <td   > 
+                        <button class="delete-btn"> Delete </button>
+                        <button onclick = "openModal()" > Edit</button>
+                        </td>
+
+                `
+                tbody.appendChild(tr)
+            })
+
+
+        }
+
+
+        // Create table rows for the first time
+        addTableRows()
+
+    </script>
+</body>
+</html>
