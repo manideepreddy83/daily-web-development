@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        //regular function
+        // function displayName(){
+
+        // }
+         
+        // console.log(displayName.prototype , "dispaly name prototype");
+        // console.log(CreateProduct.prototype , "createproduct prototype");
+
+        //constructor function
+    //     function CreateProduct(name,price,category){
+    //           //new will create a empty obj
+             
+    //          this.name = name
+    //          this.price = price
+    //          this.category = category
+             
+    //     }
+
+    //     CreateProduct.prototype.totalPrice = function(){
+    //         return this.price + 1.00
+    //     }
+
+    //     const product1 = new CreateProduct("pen",20,"non-electric")
+    //     const product2 = new CreateProduct("book",500,"non-electric")
+
+    //    console.log(product1.totalPrice(),product2.totalPrice())
+
+        function Animal(name,type,food){
+            this.name = name
+            this.type = type
+            this.food = food
+        }
+
+        const dog = new Animal("dog","safe","meat")
+        const cat = new Animal("cat","safe","fish")
+        const tiger = new Animal("tiger","notSafe","meat")
+
+        Animal.prototype.getName = function(){
+            return this.name
+        }
+
+        console.log(dog,cat,tiger);
+        console.log(dog.getName(),cat.getName(),tiger.getName());
+        console.log(dog.getName === cat.getName);
+       
+    </script>
+</body>
+</html>

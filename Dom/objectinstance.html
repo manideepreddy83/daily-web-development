@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const productOne = {
+           name : "pen",
+           price : 60,
+           categary : "non-electric",
+
+           displayDetails : function(greeting,userName){
+            console.log(` ${greeting}! ${userName} ,${this.name} cost is ${this.price}`);
+           }
+        }
+
+       const productTwo = {
+              name : "BooK",
+              price : 5000,
+              categary : "non-electric"
+       }
+       
+       const productThree = {
+        name : "phone",
+        price : 60000,
+        categary : "electric"
+       }
+
+       /*
+       1.To change the context of this keyword we use methods call, apply and bind
+       2.we can share method within multipule objects and change context of this keyword
+       3. call method invoke function immediately and the first argument is for object and 
+       the rest arguments is for calling function.
+       4.apply method invoke function immediately and the first argument is for object and 
+       the calling function arguments are passed in array format
+       5. bind method will not invoke function immediately it creates copy/ new reference 
+       of calling function and passing arguments is same as call method
+       */
+
+       //bindMethods are call , apply and blind.
+       //call will execute function immediately and arguments are written normally.
+       //apply will also return funcion immediately and arguments are written in array.
+       //bind method returns a new function and it doesn't execute function immediately 
+       //but when we want we can call it
+
+       productOne.displayDetails()
+       
+       productOne.displayDetails.call(productTwo,"Good Morning","Mani")
+       productOne.displayDetails.apply(productThree,["good evening", "Mani"])
+
+       const bindMethod = productOne.displayDetails.bind(productThree,"good afternoon" , "Bind method")
+
+       bindMethod()
+
+        // console.log(this,"this");
+        // console.log(window,"window object");
+
+        // product["avilable"] = true
+
+        // product.avilable = false
+
+        // delete product.avilable
+        // // console.log(product);
+
+    </script>
+</body>
+</html>

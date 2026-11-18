@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="user-form">
+     <input type="text" placeholder="Full Name" id="fullName">
+     <input type="email" placeholder="Email" id="Email">
+     <input type="password" placeholder="Password" id="password">
+     <input type="submit" value="Submit">
+    </form>
+
+    <ol id="list">
+
+    </ol>
+    <script>
+        const fullNameInputBox = document.getElementById("fullName")
+        const emailInputBox = document.getElementById("Email")
+        const passwordInputBox = document.getElementById("password")
+        const form = document.getElementById("user-form")
+        const list = document.getElementById("list") 
+
+        //store data entered by user in input boxes in session storage
+        fullNameInputBox.addEventListener("input",(e)=>{
+            sessionStorage.setItem("fullName",e.target.value)
+        })
+
+        emailInputBox.addEventListener("input",(e)=>{
+            sessionStorage.setItem("email",e.target.value)
+        })
+
+        passwordInputBox.addEventListener("input",(e)=>{
+            sessionStorage.setItem("password",e.target.value)
+        })
+
+        //get previous filled data from session storage
+        const fullName = sessionStorage.getItem("fullName")
+        const email = sessionStorage.getItem("email")
+        const Password = sessionStorage.getItem("password")
+          
+
+
+        //If session storage had data populate that in input boxes
+        if(fullName){
+            fullNameInputBox.value = fullName
+        }
+        
+        if(email){
+            emailInputBox.value = email
+        }
+        if(Password){
+            passwordInputBox.value = Password
+        }
+        //If localstorage has previous data initialise it to variable users
+        const users = JSON.parse(localStorage.getItem("users")) || []
+
+        //on page load render prevous saved users 
+        users.forEach((user)=>{
+            createUserList(user)
+        })
+        
+        //form validation
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+
+            // alert("submited")
+
+            //full Name  should contain firstName lastName
+            const fullName = fullNameInputBox.value
+            const nameParts = fullName.split(" ")
+
+            if(nameParts.length !=2){
+                alert("Enter valid full Name")
+                return
+            }
+
+            //email should always end with @gmail.com
+            const email = emailInputBox.value
+
+            if(!email.endsWith("@gmail.com")){
+                alert("Enter Valid email")
+                return
+            }
+
+            //password should contain 1 capital letter , 1 small letter , 1 special character & 1 number
+            const password = passwordInputBox.value 
+   
+            if(password.length<8){
+                alert("Enter atleast 8 character")
+                return
+            }
+
+            let hasSmallCharacter = false;
+            let hasCapitalCharacter = false;
+            let hasSpecialCharacter = false;
+            let hasNumber = false;
+
+            password.split("").forEach((char)=>{
+
+                //check if it has atleast one small letter
+                if(char >= "a" && char<= "z"){
+                    hasSmallCharacter = true
+                }
+
+                //check if it has atleast one capital letter
+                if(char >= "A" && char <= "Z"){
+                    hasCapitalCharacter = true
+                }
+
+                //check if it has atleast one speacial character
+                if("!@#$%^&*".includes(char)){
+                    hasSpecialCharacter = true
+                }
+
+                //check if it has atleast one Number
+                if(char>=0 && char <= 9){
+                    hasNumber = true
+                }
+
+            })
+
+            if(!hasSmallCharacter || !hasCapitalCharacter || !hasSpecialCharacter || !hasNumber){
+                alert("password should have small letter , captial letter , specail letter and a Number")
+                return
+            }
+     
+            alert("form submitted")
+             
+            
+            //Add user details in array in local storage
+            const user = {fullName , email  ,password}
+
+            users.push(user)
+
+           localStorage.setItem("users" ,JSON.stringify(users))
+
+           createUserList(user)
+
+            //clear the form and session storage
+            e.target.reset()
+            window.sessionStorage.clear()
+        })
+
+        //Add new user into ordered list
+        function createUserList(userDetails){
+            const li = document.createElement("li")
+            const span = document.createElement("span")
+            span.textContent = `${userDetails.fullName} ${userDetails.email}`
+            li.appendChild(span)
+            list.appendChild(li)
+        }
+    </script>
+</body>
+</html>
